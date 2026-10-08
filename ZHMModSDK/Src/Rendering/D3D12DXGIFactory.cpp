@@ -4,6 +4,7 @@
 #include "ModSDK.h"
 #include "D3DUtils.h"
 #include "D3D12SwapChain.h"
+#include "ProtonInterop.h"
 
 using namespace Rendering;
 
@@ -48,6 +49,9 @@ HRESULT D3D12DXGIFactory::QueryInterface(const IID& riid, void** ppvObject) {
 
         return NOERROR;
     }
+
+    if (IsProtonInteropInterface(riid))
+        return m_Target->QueryInterface(riid, ppvObject);
 
     return E_NOINTERFACE;
 }

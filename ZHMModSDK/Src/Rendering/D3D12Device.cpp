@@ -1,6 +1,7 @@
 #include "D3D12Device.h"
 
 #include "Logging.h"
+#include "ProtonInterop.h"
 #include <d3dcompiler.h>
 
 using namespace Rendering;
@@ -52,6 +53,9 @@ HRESULT D3D12Device::QueryInterface(const IID& riid, void** ppvObject) {
 
         return NOERROR;
     }
+
+    if (IsProtonInteropInterface(riid))
+        return m_Target->QueryInterface(riid, ppvObject);
 
     return E_NOINTERFACE;
 }
